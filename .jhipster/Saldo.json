@@ -1,0 +1,39 @@
+{
+  "name": "Saldo",
+  "fields": [
+    {
+      "fieldName": "valor",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "dataAtualizacao",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "usuario",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "movimentacao",
+      "otherEntityRelationshipName": "saldo",
+      "relationshipName": "movimentacao"
+    }
+  ],
+  "changelogDate": "20201003234407",
+  "entityTableName": "saldo",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

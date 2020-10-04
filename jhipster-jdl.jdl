@@ -1,0 +1,32 @@
+entity Cliente {
+	nome String,
+    telefone String
+}
+entity Saldo{
+	valor BigDecimal required,
+    dataAtualizacao Instant,
+    usuario String
+}
+
+entity Movimentacao{
+	valor BigDecimal required,
+    data Instant,
+    tipoMovimento TipoMovimento,
+    usuario String,
+    descricao String
+}
+enum TipoMovimento {
+    ENTRADA,
+    SAIDA
+}
+relationship OneToOne{
+    Cliente {saldo} to Saldo
+}
+
+relationship OneToMany {
+   Saldo{movimentacao} to Movimentacao
+}
+
+service all with serviceImpl
+
+paginate Movimentacao with pagination

@@ -1,0 +1,27 @@
+{
+  "financeiroApp": {
+    "movimentacao": {
+      "home": {
+        "title": "Movimentacaos",
+        "createLabel": "Criar novo Movimentacao",
+        "createOrEditLabel": "Criar ou editar Movimentacao",
+        "notFound": "Nenhum Movimentacao encontrado"
+      },
+      "created": "Um novo Movimentacao foi criado com o identificador {{ param }}",
+      "updated": "Um Movimentacao foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Movimentacao foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Movimentacao {{ id }}?"
+      },
+      "detail": {
+        "title": "Movimentacao"
+      },
+      "valor": "Valor",
+      "data": "Data",
+      "tipoMovimento": "Tipo Movimento",
+      "usuario": "Usuario",
+      "descricao": "Descricao",
+      "saldo": "Saldo"
+    }
+  }
+}
