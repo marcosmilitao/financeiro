@@ -88,7 +88,7 @@ public class SaldoServiceImpl implements SaldoService {
 
                 m.setValor(movimentacao.getValor());
                 m.setSaldo(movimentacao.getSaldo());
-                m.setTipoMovimento(TipoMovimento.ENTRADA);
+                m.setTipoMovimento(TipoMovimento.SAIDA);
                 m.descricao(movimentacao.getDescricao());
                 movimentacaoRepository.save(m);
                 saldoRepository.save(s);
