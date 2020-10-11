@@ -1,6 +1,9 @@
 package com.financeiro.web.rest;
 
+import com.financeiro.domain.Cliente;
+import com.financeiro.domain.Movimentacao;
 import com.financeiro.domain.Saldo;
+import com.financeiro.domain.enumeration.TipoMovimento;
 import com.financeiro.service.SaldoService;
 import com.financeiro.web.rest.errors.BadRequestAlertException;
 
@@ -13,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -113,5 +117,23 @@ public class SaldoResource {
         log.debug("REST request to delete Saldo : {}", id);
         saldoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+
+
+    /**
+     * {@code POST  /movimentacaos} : Create a new movimentacao.
+     *
+     * @param movimentacao the movimentacao to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new movimentacao, or with status {@code 400 (Bad Request)} if the movimentacao has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/atualisaSaldo")
+    public ResponseEntity<Saldo> atualisaSaldo(@Valid @RequestBody Movimentacao movimentacao) throws URISyntaxException {
+
+        Saldo result = saldoService.atualizaSaldo(movimentacao);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, movimentacao.getSaldo().getId().toString()))
+            .body(result);
     }
 }

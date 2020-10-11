@@ -12,6 +12,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import com.financeiro.domain.enumeration.TipoMovimento;
+import com.financeiro.security.SecurityUtils;
 
 /**
  * A Movimentacao.
@@ -50,12 +51,13 @@ public class Movimentacao implements Serializable {
 
     @PrePersist
     protected void prePersist() {
-        if (this.data == null){
-            Instant nowUtc = Instant.now();
-            ZoneId brasilSaoPaulo = ZoneId.of("America/Sao_Paulo");
-            ZonedDateTime nowBrasil = ZonedDateTime.ofInstant(nowUtc,brasilSaoPaulo);
-            this.data = nowBrasil.toInstant();
-        }
+
+        Instant nowUtc = Instant.now();
+        ZoneId brasilSaoPaulo = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime nowBrasil = ZonedDateTime.ofInstant(nowUtc,brasilSaoPaulo);
+        this.data = nowBrasil.toInstant();
+
+        this.setUsuario(SecurityUtils.getCurrentUserLogin().get());
     }
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {

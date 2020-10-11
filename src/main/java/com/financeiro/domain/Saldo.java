@@ -1,6 +1,8 @@
 package com.financeiro.domain;
 
 
+import com.financeiro.security.SecurityUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -45,6 +47,8 @@ public class Saldo implements Serializable {
         ZoneId brasilSaoPaulo = ZoneId.of("America/Sao_Paulo");
         ZonedDateTime nowBrasil = ZonedDateTime.ofInstant(nowUtc,brasilSaoPaulo);
         this.dataAtualizacao = nowBrasil.toInstant();
+
+        this.setUsuario(SecurityUtils.getCurrentUserLogin().get());
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

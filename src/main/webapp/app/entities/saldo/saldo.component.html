@@ -32,7 +32,7 @@
             <tbody>
                 <tr *ngFor="let saldo of saldos ;trackBy: trackId">
                     <td><a [routerLink]="['/saldo', saldo.id, 'view']">{{ saldo.id }}</a></td>
-                    <td>{{ saldo.valor }}</td>
+                    <td>{{ saldo.valor | currency:'BRL':true }}</td>
                     <td>{{ saldo.dataAtualizacao | date:'medium' }}</td>
                     <td>{{ saldo.usuario }}</td>
                     <td class="text-right">

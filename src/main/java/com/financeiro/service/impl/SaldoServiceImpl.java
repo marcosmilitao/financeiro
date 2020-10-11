@@ -65,40 +65,42 @@ public class SaldoServiceImpl implements SaldoService {
     }
 
     @Override
-    public Saldo atualizaSaldo(Cliente cliente, BigDecimal valor, TipoMovimento tipoMovimento) {
+    public Saldo atualizaSaldo(Movimentacao movimentacao) {
 
-        Movimentacao movimentacao = new Movimentacao();
+        Movimentacao m = new Movimentacao();
+        Saldo s = movimentacao.getSaldo();
 
-        BigDecimal saldo;
+        if(movimentacao.getTipoMovimento() == TipoMovimento.ENTRADA) {
+            s.setValor(s.getValor().add(movimentacao.getValor()));
 
-        saldo = cliente.getSaldo().getValor();
+            m.setValor(movimentacao.getValor());
+            m.setSaldo(movimentacao.getSaldo());
+            m.setTipoMovimento(TipoMovimento.ENTRADA);
+            m.descricao(movimentacao.getDescricao());
+            movimentacaoRepository.save(m);
+            saldoRepository.save(s);
+            log.debug("SALDO ATUALIZADO !!!");
 
-        if(tipoMovimento == TipoMovimento.ENTRADA) {
-            cliente.getSaldo().setValor(saldo.add(valor));
+        }else if ( movimentacao.getTipoMovimento() == TipoMovimento.SAIDA) {
+            if (verificaSaldo(movimentacao.getValor(), movimentacao.getSaldo().getValor())) {
 
-            movimentacao.setValor(valor);
-            movimentacao.setSaldo(cliente.getSaldo());
-            movimentacao.setTipoMovimento(TipoMovimento.ENTRADA);
-            movimentacaoRepository.save(movimentacao);
-            clienteRepository.save(cliente);
-        }else if ( tipoMovimento == TipoMovimento.SAIDA) {
-            if (verificaSaldo(valor, saldo)) {
-                cliente.getSaldo().setValor(saldo.subtract(valor));
+                s.setValor(s.getValor().subtract(movimentacao.getValor()));
 
-                movimentacao.setValor(valor);
-                movimentacao.setSaldo(cliente.getSaldo());
-                movimentacao.setTipoMovimento(TipoMovimento.SAIDA);
-                movimentacaoRepository.save(movimentacao);
-                clienteRepository.save(cliente);
+                m.setValor(movimentacao.getValor());
+                m.setSaldo(movimentacao.getSaldo());
+                m.setTipoMovimento(TipoMovimento.ENTRADA);
+                m.descricao(movimentacao.getDescricao());
+                movimentacaoRepository.save(m);
+                saldoRepository.save(s);
             } else {
                 log.debug("Saldo Insuficiente !!!");
             }
         }
-        return cliente.getSaldo();
+        return s;
     }
 
-    public boolean verificaSaldo(BigDecimal valor, BigDecimal saldoRevendedor){
-        if(valor.compareTo(saldoRevendedor) > 0) {
+    public boolean verificaSaldo(BigDecimal valor, BigDecimal saldo){
+        if(valor.compareTo(saldo) > 0) {
             log.debug("VALOR MAIOR !!!!!!!");
             return false;
         }else {

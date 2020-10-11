@@ -36,7 +36,7 @@
                     <td>{{ cliente.telefone }}</td>
                     <td>
                         <div *ngIf="cliente.saldo">
-                            <a [routerLink]="['/saldo', cliente.saldo?.id, 'view']" >{{ cliente.saldo?.id }}</a>
+                            <a [routerLink]="['/saldo', cliente.saldo?.id, 'view']" >{{ cliente.saldo?.valor | currency:'BRL':true }}</a>
                         </div>
                     </td>
                     <td class="text-right">

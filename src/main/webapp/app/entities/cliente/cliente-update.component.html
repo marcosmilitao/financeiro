@@ -23,13 +23,13 @@
                            formControlName="telefone"/>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="financeiroApp.cliente.saldo" for="field_saldo">Saldo</label>
-                    <select class="form-control" id="field_saldo" name="saldo" formControlName="saldo">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="saldoOption.id === editForm.get('saldo')!.value?.id ? editForm.get('saldo')!.value : saldoOption" *ngFor="let saldoOption of saldos; trackBy: trackById">{{ saldoOption.id }}</option>
-                    </select>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="financeiroApp.cliente.saldo" for="field_saldo">Saldo</label>-->
+<!--                    <select class="form-control" id="field_saldo" name="saldo" formControlName="saldo">-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="saldoOption.id === editForm.get('saldo')!.value?.id ? editForm.get('saldo')!.value : saldoOption" *ngFor="let saldoOption of saldos; trackBy: trackById">{{ saldoOption.id }}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
             </div>
 
             <div>

@@ -1,6 +1,7 @@
 package com.financeiro.service;
 
 import com.financeiro.domain.Cliente;
+import com.financeiro.domain.Movimentacao;
 import com.financeiro.domain.Saldo;
 import com.financeiro.domain.enumeration.TipoMovimento;
 
@@ -44,5 +45,5 @@ public interface SaldoService {
      */
     void delete(Long id);
 
-    Saldo atualizaSaldo(Cliente cliente, BigDecimal valor, TipoMovimento tipoMovimento);
+    Saldo atualizaSaldo(Movimentacao movimentacao);
 }
