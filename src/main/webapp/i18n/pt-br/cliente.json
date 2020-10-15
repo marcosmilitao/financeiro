@@ -18,6 +18,7 @@
       },
       "nome": "Nome",
       "telefone": "Telefone",
+      "limite": "Limite",
       "saldo": "Saldo"
     }
   }

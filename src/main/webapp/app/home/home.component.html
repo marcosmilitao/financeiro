@@ -50,9 +50,8 @@
                 <td>{{ cliente.nome }}</td>
                 <td>{{ cliente.telefone }}</td>
                 <td>
-                    <div *ngIf="cliente.saldo">
-                        <a [routerLink]="['/saldo', cliente.saldo?.id, 'view']" >{{ cliente.saldo?.valor | currency:'BRL':true }}</a>
-                    </div>
+                    {{ cliente.saldo?.valor | currency:'BRL':true }}
+
                 </td>
                 <td class="text-right">
                     <div class="btn-group">

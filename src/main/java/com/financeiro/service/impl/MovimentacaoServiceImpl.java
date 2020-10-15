@@ -6,11 +6,10 @@ import com.financeiro.repository.MovimentacaoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,9 +35,9 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Movimentacao> findAll(Pageable pageable) {
+    public List<Movimentacao> findAll() {
         log.debug("Request to get all Movimentacaos");
-        return movimentacaoRepository.findAll(pageable);
+        return movimentacaoRepository.findAll();
     }
 
 
@@ -53,5 +52,12 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
     public void delete(Long id) {
         log.debug("Request to delete Movimentacao : {}", id);
         movimentacaoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Movimentacao> findAllbySaldoId(Long id) {
+        log.debug("Request to delete Movimentacao : {}", id);
+
+        return movimentacaoRepository.findOneBySaldoId(id);
     }
 }

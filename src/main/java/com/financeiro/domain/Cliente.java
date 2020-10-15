@@ -4,6 +4,7 @@ package com.financeiro.domain;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * A Cliente.
@@ -24,6 +25,9 @@ public class Cliente implements Serializable {
 
     @Column(name = "telefone")
     private String telefone;
+
+    @Column(name = "limite", precision = 21, scale = 2)
+    private BigDecimal limite;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -64,6 +68,19 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
+    public BigDecimal getLimite() {
+        return limite;
+    }
+
+    public Cliente limite(BigDecimal limite) {
+        this.limite = limite;
+        return this;
+    }
+
+    public void setLimite(BigDecimal limite) {
+        this.limite = limite;
+    }
+
     public Saldo getSaldo() {
         return saldo;
     }
@@ -101,6 +118,7 @@ public class Cliente implements Serializable {
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
             ", telefone='" + getTelefone() + "'" +
+            ", limite=" + getLimite() +
             "}";
     }
 }

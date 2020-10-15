@@ -8,6 +8,10 @@
     {
       "fieldName": "telefone",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "limite",
+      "fieldType": "BigDecimal"
     }
   ],
   "relationships": [

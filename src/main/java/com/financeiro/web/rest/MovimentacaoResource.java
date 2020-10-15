@@ -5,16 +5,10 @@ import com.financeiro.service.MovimentacaoService;
 import com.financeiro.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,15 +81,12 @@ public class MovimentacaoResource {
     /**
      * {@code GET  /movimentacaos} : get all the movimentacaos.
      *
-     * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of movimentacaos in body.
      */
     @GetMapping("/movimentacaos")
-    public ResponseEntity<List<Movimentacao>> getAllMovimentacaos(Pageable pageable) {
-        log.debug("REST request to get a page of Movimentacaos");
-        Page<Movimentacao> page = movimentacaoService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public List<Movimentacao> getAllMovimentacaos() {
+        log.debug("REST request to get all Movimentacaos");
+        return movimentacaoService.findAll();
     }
 
     /**
@@ -122,5 +113,17 @@ public class MovimentacaoResource {
         log.debug("REST request to delete Movimentacao : {}", id);
         movimentacaoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * {@code GET  /movimentacaos/:id} : get the "id" movimentacao.
+     *
+     * @param id the id of the movimentacao to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the movimentacao, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/movimentacaosLista/{id}")
+    public List<Movimentacao> getListaMovimentacaoPorId(@PathVariable Long id) {
+        log.debug("REST request to get Movimentacao : {}", id);
+        return movimentacaoService.findAllbySaldoId(id);
     }
 }

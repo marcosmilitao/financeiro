@@ -40,7 +40,6 @@ export const movimentacaoRoute: Routes = [
     component: MovimentacaoComponent,
     data: {
       authorities: [Authority.USER],
-      defaultSort: 'id,asc',
       pageTitle: 'financeiroApp.movimentacao.home.title',
     },
     canActivate: [UserRouteAccessService],

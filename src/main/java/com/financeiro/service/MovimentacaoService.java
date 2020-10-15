@@ -2,9 +2,7 @@ package com.financeiro.service;
 
 import com.financeiro.domain.Movimentacao;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,10 +21,9 @@ public interface MovimentacaoService {
     /**
      * Get all the movimentacaos.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Movimentacao> findAll(Pageable pageable);
+    List<Movimentacao> findAll();
 
 
     /**
@@ -43,4 +40,12 @@ public interface MovimentacaoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Get all the movimentacaos por id.
+     *
+     * @return the list of entities.
+     */
+    List<Movimentacao> findAllbySaldoId(Long id);
+
 }

@@ -49,6 +49,7 @@ public class Movimentacao implements Serializable {
     @JsonIgnoreProperties(value = "movimentacaos", allowSetters = true)
     private Saldo saldo;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
     @PrePersist
     protected void prePersist() {
 
@@ -59,7 +60,7 @@ public class Movimentacao implements Serializable {
 
         this.setUsuario(SecurityUtils.getCurrentUserLogin().get());
     }
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
         return id;
     }

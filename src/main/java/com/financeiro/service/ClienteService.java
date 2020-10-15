@@ -41,11 +41,6 @@ public interface ClienteService {
      */
     void delete(Long id);
 
-    /**
-     * add a cliente.
-     *
-     * @param cliente the entity to add.
-     * @return the persisted entity.
-     */
+
     Cliente add(Cliente cliente);
 }

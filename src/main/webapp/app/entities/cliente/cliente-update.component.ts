@@ -23,7 +23,7 @@ export class ClienteUpdateComponent implements OnInit {
     id: [],
     nome: [],
     telefone: [],
-    saldo: [],
+    limite: [],
   });
 
   constructor(
@@ -66,7 +66,7 @@ export class ClienteUpdateComponent implements OnInit {
       id: cliente.id,
       nome: cliente.nome,
       telefone: cliente.telefone,
-      saldo: cliente.saldo,
+      limite: cliente.limite,
     });
   }
 
@@ -90,7 +90,7 @@ export class ClienteUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nome: this.editForm.get(['nome'])!.value,
       telefone: this.editForm.get(['telefone'])!.value,
-      saldo: this.editForm.get(['saldo'])!.value,
+      limite: this.editForm.get(['limite'])!.value,
     };
   }
 

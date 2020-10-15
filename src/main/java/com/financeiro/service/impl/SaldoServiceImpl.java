@@ -66,27 +66,41 @@ public class SaldoServiceImpl implements SaldoService {
 
     @Override
     public Saldo atualizaSaldo(Movimentacao movimentacao) {
-
+        TipoMovimento t;
         Movimentacao m = new Movimentacao();
         Saldo s = movimentacao.getSaldo();
+        Cliente c = clienteRepository.findOneBySaldoId(movimentacao.getSaldo().getId());
 
-        if(movimentacao.getTipoMovimento() == TipoMovimento.ENTRADA) {
-            s.setValor(s.getValor().add(movimentacao.getValor()));
+        if(movimentacao.getValor().compareTo(BigDecimal.ZERO) < 0 && movimentacao.getTipoMovimento() == TipoMovimento.ENTRADA)  {
+            t = TipoMovimento.SAIDA;
+        } else{
+            t = movimentacao.getTipoMovimento();
+        }
+        if(TipoMovimento.ENTRADA == t) {
 
-            m.setValor(movimentacao.getValor());
-            m.setSaldo(movimentacao.getSaldo());
-            m.setTipoMovimento(TipoMovimento.ENTRADA);
-            m.descricao(movimentacao.getDescricao());
-            movimentacaoRepository.save(m);
-            saldoRepository.save(s);
-            log.debug("SALDO ATUALIZADO !!!");
-
-        }else if ( movimentacao.getTipoMovimento() == TipoMovimento.SAIDA) {
-            if (verificaSaldo(movimentacao.getValor(), movimentacao.getSaldo().getValor())) {
-
-                s.setValor(s.getValor().subtract(movimentacao.getValor()));
+                s.setValor(s.getValor().add(movimentacao.getValor()));
 
                 m.setValor(movimentacao.getValor());
+                m.setSaldo(movimentacao.getSaldo());
+                m.setTipoMovimento(TipoMovimento.ENTRADA);
+                m.descricao(movimentacao.getDescricao());
+                movimentacaoRepository.save(m);
+                saldoRepository.save(s);
+
+                 log.debug("SALDO ATUALIZADO !!!");
+
+        }else if (TipoMovimento.SAIDA == t) {
+            BigDecimal valor;
+            if(movimentacao.getValor().compareTo(BigDecimal.ZERO) < 0){
+                valor = movimentacao.getValor().negate();
+            }else{
+                valor = movimentacao.getValor();
+            }
+            if (verificaSaldo(movimentacao.getValor(), valor,c.getLimite())) {
+
+                s.setValor(s.getValor().subtract(valor));
+
+                m.setValor(valor);
                 m.setSaldo(movimentacao.getSaldo());
                 m.setTipoMovimento(TipoMovimento.SAIDA);
                 m.descricao(movimentacao.getDescricao());
@@ -99,8 +113,14 @@ public class SaldoServiceImpl implements SaldoService {
         return s;
     }
 
-    public boolean verificaSaldo(BigDecimal valor, BigDecimal saldo){
-        if(valor.compareTo(saldo) > 0) {
+    public boolean verificaSaldo(BigDecimal valor, BigDecimal saldo, BigDecimal limite){
+
+        if(limite == null){
+            limite = BigDecimal.ZERO;
+        }
+        BigDecimal saldoTotal = saldo.add(limite);
+
+        if(valor.compareTo(saldoTotal) > 0) {
             log.debug("VALOR MAIOR !!!!!!!");
             return false;
         }else {

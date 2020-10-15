@@ -38,7 +38,7 @@
   "changelogDate": "20201003234507",
   "entityTableName": "movimentacao",
   "dto": "no",
-  "pagination": "pagination",
+  "pagination": "no",
   "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,

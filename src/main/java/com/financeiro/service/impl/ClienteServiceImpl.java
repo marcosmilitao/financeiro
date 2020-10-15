@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,11 +59,14 @@ public class ClienteServiceImpl implements ClienteService {
         log.debug("Request to delete Cliente : {}", id);
         clienteRepository.deleteById(id);
     }
-
     @Override
     public Cliente add(Cliente cliente) {
         Saldo saldo = new Saldo();
         Saldo novoSaldo = new Saldo();
+
+        if(cliente.getLimite() == null){
+            cliente.setLimite(BigDecimal.ZERO);
+        }
 
         saldo.setValor(BigDecimal.ZERO);
         saldo.setUsuario(SecurityUtils.getCurrentUserLogin().get());
@@ -76,4 +76,5 @@ public class ClienteServiceImpl implements ClienteService {
         log.debug("Request to save Cliente : {}", cliente);
         return clienteRepository.save(cliente);
     }
+
 }

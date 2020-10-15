@@ -21,6 +21,7 @@ export class HomeService {
   public resourceUrl = SERVER_API_URL + 'api/clientes';
   public resourceUrlSaldo = SERVER_API_URL + 'api/atualisaSaldo';
   public resourceUrlMovimentacao = SERVER_API_URL + 'api/movimentacaos';
+  public resourceUrlSaldoId = SERVER_API_URL + 'api/movimentacaosLista';
 
   constructor(protected http: HttpClient) {}
 
@@ -61,6 +62,12 @@ export class HomeService {
     return this.http
       .put<IMovimentacao>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  findBySaldoId(id: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IMovimentacao[]>(`${this.resourceUrlSaldoId}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   findM(id: number): Observable<EntityResponseTypeM> {

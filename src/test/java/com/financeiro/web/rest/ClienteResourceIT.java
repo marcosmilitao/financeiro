@@ -15,6 +15,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,6 +36,9 @@ public class ClienteResourceIT {
 
     private static final String DEFAULT_TELEFONE = "AAAAAAAAAA";
     private static final String UPDATED_TELEFONE = "BBBBBBBBBB";
+
+    private static final BigDecimal DEFAULT_LIMITE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LIMITE = new BigDecimal(2);
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -59,7 +63,8 @@ public class ClienteResourceIT {
     public static Cliente createEntity(EntityManager em) {
         Cliente cliente = new Cliente()
             .nome(DEFAULT_NOME)
-            .telefone(DEFAULT_TELEFONE);
+            .telefone(DEFAULT_TELEFONE)
+            .limite(DEFAULT_LIMITE);
         return cliente;
     }
     /**
@@ -71,7 +76,8 @@ public class ClienteResourceIT {
     public static Cliente createUpdatedEntity(EntityManager em) {
         Cliente cliente = new Cliente()
             .nome(UPDATED_NOME)
-            .telefone(UPDATED_TELEFONE);
+            .telefone(UPDATED_TELEFONE)
+            .limite(UPDATED_LIMITE);
         return cliente;
     }
 
@@ -96,6 +102,7 @@ public class ClienteResourceIT {
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
         assertThat(testCliente.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testCliente.getTelefone()).isEqualTo(DEFAULT_TELEFONE);
+        assertThat(testCliente.getLimite()).isEqualTo(DEFAULT_LIMITE);
     }
 
     @Test
@@ -130,7 +137,8 @@ public class ClienteResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
-            .andExpect(jsonPath("$.[*].telefone").value(hasItem(DEFAULT_TELEFONE)));
+            .andExpect(jsonPath("$.[*].telefone").value(hasItem(DEFAULT_TELEFONE)))
+            .andExpect(jsonPath("$.[*].limite").value(hasItem(DEFAULT_LIMITE.intValue())));
     }
     
     @Test
@@ -145,7 +153,8 @@ public class ClienteResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(cliente.getId().intValue()))
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME))
-            .andExpect(jsonPath("$.telefone").value(DEFAULT_TELEFONE));
+            .andExpect(jsonPath("$.telefone").value(DEFAULT_TELEFONE))
+            .andExpect(jsonPath("$.limite").value(DEFAULT_LIMITE.intValue()));
     }
     @Test
     @Transactional
@@ -169,7 +178,8 @@ public class ClienteResourceIT {
         em.detach(updatedCliente);
         updatedCliente
             .nome(UPDATED_NOME)
-            .telefone(UPDATED_TELEFONE);
+            .telefone(UPDATED_TELEFONE)
+            .limite(UPDATED_LIMITE);
 
         restClienteMockMvc.perform(put("/api/clientes")
             .contentType(MediaType.APPLICATION_JSON)
@@ -182,6 +192,7 @@ public class ClienteResourceIT {
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
         assertThat(testCliente.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testCliente.getTelefone()).isEqualTo(UPDATED_TELEFONE);
+        assertThat(testCliente.getLimite()).isEqualTo(UPDATED_LIMITE);
     }
 
     @Test

@@ -25,6 +25,7 @@
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="financeiroApp.cliente.nome">Nome</span></th>
                     <th scope="col" ><span jhiTranslate="financeiroApp.cliente.telefone">Telefone</span></th>
+                    <th scope="col" ><span jhiTranslate="financeiroApp.cliente.limite">Limite</span></th>
                     <th scope="col" ><span jhiTranslate="financeiroApp.cliente.saldo">Saldo</span></th>
                     <th scope="col"></th>
                 </tr>
@@ -34,9 +35,10 @@
                     <td><a [routerLink]="['/cliente', cliente.id, 'view']">{{ cliente.id }}</a></td>
                     <td>{{ cliente.nome }}</td>
                     <td>{{ cliente.telefone }}</td>
+                    <td>{{ cliente.limite }}</td>
                     <td>
                         <div *ngIf="cliente.saldo">
-                            <a [routerLink]="['/saldo', cliente.saldo?.id, 'view']" >{{ cliente.saldo?.valor | currency:'BRL':true }}</a>
+                            <a [routerLink]="['/saldo', cliente.saldo?.id, 'view']" >{{ cliente.saldo?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">

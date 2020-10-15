@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="jhi-cliente-heading">Adicionar Cliente</h2>
+            <h2 id="jhi-cliente-heading" >Cadastrar Cliente</h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -14,22 +14,21 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="financeiroApp.cliente.nome" for="field_nome">Nome</label>
                     <input type="text" class="form-control" name="nome" id="field_nome"
-                           formControlName="nome"/>
+                           formControlName="nome" autocomplete="off" required/>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="financeiroApp.cliente.telefone" for="field_telefone">Telefone</label>
-                    <input type="text" class="form-control" name="telefone" id="field_telefone"
-                           formControlName="telefone"/>
+                    <input type="number" class="form-control" name="telefone" id="field_telefone"
+                           formControlName="telefone" maxlength="11" placeholder="(00) 00000-0000" autocomplete="off" required/>
                 </div>
 
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="financeiroApp.cliente.saldo" for="field_saldo">Saldo</label>-->
-<!--                    <select class="form-control" id="field_saldo" name="saldo" formControlName="saldo">-->
-<!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="saldoOption.id === editForm.get('saldo')!.value?.id ? editForm.get('saldo')!.value : saldoOption" *ngFor="let saldoOption of saldos; trackBy: trackById">{{ saldoOption.id }}</option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="financeiroApp.cliente.limite" for="field_limite">Limite</label>
+                    <input currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="form-control" name="limite" id="field_limite"
+                           formControlName="limite"  autocomplete="off" placeholder="R$ 0,00" required/>
+
+                </div>
             </div>
 
             <div>
