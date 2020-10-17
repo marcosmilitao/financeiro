@@ -1,11 +1,8 @@
 package com.financeiro.service;
 
-import com.financeiro.domain.Cliente;
 import com.financeiro.domain.Movimentacao;
 import com.financeiro.domain.Saldo;
-import com.financeiro.domain.enumeration.TipoMovimento;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 

@@ -131,9 +131,16 @@ public class SaldoResource {
     @PostMapping("/atualisaSaldo")
     public ResponseEntity<Saldo> atualisaSaldo(@Valid @RequestBody Movimentacao movimentacao) throws URISyntaxException {
 
+        BigDecimal saldoAnterior = movimentacao.getSaldo().getValor();
         Saldo result = saldoService.atualizaSaldo(movimentacao);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, movimentacao.getSaldo().getId().toString()))
-            .body(result);
+
+        if(result.getValor() == saldoAnterior){
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nolimit");
+
+        }else {
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, movimentacao.getSaldo().getId().toString()))
+                .body(result);
+        }
     }
 }

@@ -85,9 +85,10 @@ public class SaldoServiceImpl implements SaldoService {
                 m.setTipoMovimento(TipoMovimento.ENTRADA);
                 m.descricao(movimentacao.getDescricao());
                 movimentacaoRepository.save(m);
-                saldoRepository.save(s);
+            log.debug("SALDO ATUALIZADO ENTRADA!!!");
+               return saldoRepository.save(s);
 
-                 log.debug("SALDO ATUALIZADO !!!");
+
 
         }else if (TipoMovimento.SAIDA == t) {
             BigDecimal valor;
@@ -96,7 +97,7 @@ public class SaldoServiceImpl implements SaldoService {
             }else{
                 valor = movimentacao.getValor();
             }
-            if (verificaSaldo(movimentacao.getValor(), valor,c.getLimite())) {
+            if (verificaSaldo(movimentacao.getValor(), s.getValor(),c.getLimite())) {
 
                 s.setValor(s.getValor().subtract(valor));
 
@@ -105,11 +106,16 @@ public class SaldoServiceImpl implements SaldoService {
                 m.setTipoMovimento(TipoMovimento.SAIDA);
                 m.descricao(movimentacao.getDescricao());
                 movimentacaoRepository.save(m);
-                saldoRepository.save(s);
+                log.debug("SALDO ATUALIZADO NEGATIVO!!!");
+                return saldoRepository.save(s);
+
+
             } else {
                 log.debug("Saldo Insuficiente !!!");
+                return s;
             }
         }
+
         return s;
     }
 
@@ -119,7 +125,8 @@ public class SaldoServiceImpl implements SaldoService {
             limite = BigDecimal.ZERO;
         }
         BigDecimal saldoTotal = saldo.add(limite);
-
+        log.debug(limite.toString());
+        log.debug(saldoTotal.toString());
         if(valor.compareTo(saldoTotal) > 0) {
             log.debug("VALOR MAIOR !!!!!!!");
             return false;

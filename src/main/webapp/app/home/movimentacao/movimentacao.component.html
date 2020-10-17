@@ -22,24 +22,38 @@
             <thead>
             <tr>
                 <th scope="col" ><span jhiTranslate="financeiroApp.movimentacao.valor">Valor</span></th>
-                <th scope="col" ><span jhiTranslate="financeiroApp.movimentacao.data">Data</span></th>
+                <th scope="col" ><span jhiTranslate="financeiroApp.movimentacao.descricao">Descricao</span></th>
                 <th scope="col" ><span jhiTranslate="financeiroApp.movimentacao.tipoMovimento">Tipo Movimento</span></th>
                 <th scope="col" ><span jhiTranslate="financeiroApp.movimentacao.usuario">Usuario</span></th>
-                <th scope="col" ><span jhiTranslate="financeiroApp.movimentacao.descricao">Descricao</span></th>
+                <th scope="col" ><span jhiTranslate="financeiroApp.movimentacao.data">Data</span></th>
+
 
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let movimentacao of movimentacaos ;trackBy: trackId">
+                <ng-container *ngIf="movimentacao.tipoMovimento == 'SAIDA'">
+                    <td [ngStyle]="{'color': 'Red'}">- {{ movimentacao.valor  | currency:'BRL':true}}</td>
+                </ng-container>
+                <ng-container *ngIf="movimentacao.tipoMovimento == 'ENTRADA'">
+                    <td [ngStyle]="{'color': 'Green'}">+ {{ movimentacao.valor  | currency:'BRL':true}}</td>
+                </ng-container>
 
-                <td>{{ movimentacao.valor  | currency:'BRL':true}}</td>
-                <td>{{ movimentacao.data | date:'medium' }}</td>
-                <td jhiTranslate="{{ 'financeiroApp.TipoMovimento.' + movimentacao.tipoMovimento }}">{{ movimentacao.tipoMovimento }}</td>
-                <td>{{ movimentacao.usuario }}</td>
-                <td>{{ movimentacao.descricao }}</td>
-
+                <td [ngStyle]="{'color': movimentacao.tipoMovimento == 'SAIDA' ? 'Red' : 'Green'}" >{{ movimentacao.descricao }}</td>
+                <td [ngStyle]="{'color': movimentacao.tipoMovimento == 'SAIDA' ? 'Red' : 'Green'}">{{ movimentacao.tipoMovimento }}</td>
+                <td [ngStyle]="{'color': movimentacao.tipoMovimento == 'SAIDA' ? 'Red' : 'Green'}">{{ movimentacao.usuario }}</td>
+                <td [ngStyle]="{'color': movimentacao.tipoMovimento == 'SAIDA' ? 'Red' : 'Green'}">{{ movimentacao.data | date:'medium' }}</td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+<style type="text/css">
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+</style>
