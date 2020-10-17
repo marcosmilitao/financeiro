@@ -1,0 +1,9 @@
+{
+  "financeiroApp": {
+    "TipoMovimento": {
+      "null": "",
+      "ENTRADA": "ENTRADA",
+      "SAIDA": "SAIDA"
+    }
+  }
+}

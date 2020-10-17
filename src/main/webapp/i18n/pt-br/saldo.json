@@ -1,0 +1,25 @@
+{
+  "financeiroApp": {
+    "saldo": {
+      "home": {
+        "title": "Saldos",
+        "createLabel": "Criar novo Saldo",
+        "createOrEditLabel": "Criar ou editar Saldo",
+        "notFound": "Nenhum Saldo encontrado"
+      },
+      "created": "Um novo Saldo foi criado com o identificador {{ param }}",
+      "updated": "Um Saldo foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Saldo foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Saldo {{ id }}?"
+      },
+      "detail": {
+        "title": "Saldo"
+      },
+      "valor": "Valor",
+      "dataAtualizacao": "Data Atualizacao",
+      "usuario": "Usuario",
+      "movimentacao": "Movimentacao"
+    }
+  }
+}

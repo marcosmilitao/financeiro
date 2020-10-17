@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="saldo">
+            <h2><span jhiTranslate="financeiroApp.saldo.detail.title">Saldo</span> {{ saldo.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="financeiroApp.saldo.valor">Valor</span></dt>
+                <dd>
+                    <span>{{ saldo.valor }}</span>
+                </dd>
+                <dt><span jhiTranslate="financeiroApp.saldo.dataAtualizacao">Data Atualizacao</span></dt>
+                <dd>
+                    <span>{{ saldo.dataAtualizacao }}</span>
+                </dd>
+                <dt><span jhiTranslate="financeiroApp.saldo.usuario">Usuario</span></dt>
+                <dd>
+                    <span>{{ saldo.usuario }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/saldo', saldo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
