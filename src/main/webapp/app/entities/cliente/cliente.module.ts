@@ -8,9 +8,10 @@ import { ClienteUpdateComponent } from './cliente-update.component';
 import { ClienteDeleteDialogComponent } from './cliente-delete-dialog.component';
 import { clienteRoute } from './cliente.route';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
-  imports: [FinanceiroSharedModule, RouterModule.forChild(clienteRoute), NgxCurrencyModule],
+  imports: [FinanceiroSharedModule, RouterModule.forChild(clienteRoute), NgxCurrencyModule, NgxMaskModule.forRoot()],
   declarations: [ClienteComponent, ClienteDetailComponent, ClienteUpdateComponent, ClienteDeleteDialogComponent],
   entryComponents: [ClienteDeleteDialogComponent],
 })
