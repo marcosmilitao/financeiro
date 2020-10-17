@@ -32,6 +32,9 @@
     <div class="alert alert-warning" id="no-result" *ngIf="clientes?.length === 0">
         <span jhiTranslate="financeiroApp.cliente.home.notFound">No clientes found</span>
     </div>
+    <div class="float-right" >
+        <input class="form-control" type="text" [(ngModel)]="nome" placeholder="Pesquisar..."/>
+    </div>
 
     <div class="table-responsive" id="entities" *ngIf="clientes && clientes.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
@@ -45,7 +48,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let cliente of clientes ;trackBy: trackId">
+            <tr *ngFor="let cliente of clientes | pesquisa:nome;trackBy: trackId">
 <!--                <td><a [routerLink]="['/cliente', cliente.id, 'view']">{{ cliente.id }}</a></td>-->
                 <td>{{ cliente.nome }}</td>
                 <td>{{ cliente.telefone }}</td>

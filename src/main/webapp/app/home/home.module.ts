@@ -8,9 +8,10 @@ import { CreditoComponent } from './credito/credito.component';
 import { DebitoComponent } from './debito/debito.component';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
+import { PesquisaPipe } from './pesquisa.pipe';
 
 @NgModule({
   imports: [FinanceiroSharedModule, RouterModule.forChild(HOME_ROUTE), NgxCurrencyModule],
-  declarations: [HomeComponent, CreditoComponent, DebitoComponent, MovimentacaoComponent],
+  declarations: [HomeComponent, CreditoComponent, DebitoComponent, MovimentacaoComponent, PesquisaPipe],
 })
 export class FinanceiroHomeModule {}

@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   authSubscription?: Subscription;
   clientes?: ICliente[];
   eventSubscriber?: Subscription;
+  nome = '';
 
   constructor(
     private accountService: AccountService,
