@@ -38,9 +38,6 @@
     "enableTranslation": true,
     "nativeLanguage": "pt-br",
     "languages": ["pt-br"],
-    "blueprints": [],
-    "herokuAppName": "extratocerto",
-    "herokuDeployType": "git",
-    "herokuJavaVersion": "11"
+    "blueprints": []
   }
 }
