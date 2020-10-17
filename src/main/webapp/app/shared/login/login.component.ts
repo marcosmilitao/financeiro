@@ -55,6 +55,7 @@ export class LoginModalComponent implements AfterViewInit {
             this.router.url.startsWith('/account/reset/')
           ) {
             this.router.navigate(['']);
+            window.location.reload();
           }
         },
         () => (this.authenticationError = true)
