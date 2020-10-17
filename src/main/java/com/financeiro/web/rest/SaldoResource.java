@@ -129,14 +129,15 @@ public class SaldoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/atualisaSaldo")
-    public ResponseEntity<Saldo> atualisaSaldo(@Valid @RequestBody Movimentacao movimentacao) throws URISyntaxException {
+    public ResponseEntity<Saldo> atualisaSaldo(@Valid @RequestBody Movimentacao movimentacao) {
 
         BigDecimal saldoAnterior = movimentacao.getSaldo().getValor();
         Saldo result = saldoService.atualizaSaldo(movimentacao);
 
         if(result.getValor() == saldoAnterior){
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nolimit");
-
+            throw new BadRequestAlertException("SALDO INSUFICIENTE", ENTITY_NAME, "nolimit");
+            //throw new BadRequestAlertException("A new saldo cannot already have an ID", ENTITY_NAME, "idexists");
+            //return  ResponseEntity.badRequest().header("Saldo Insuficiente !").body(result);
         }else {
             return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, movimentacao.getSaldo().getId().toString()))
