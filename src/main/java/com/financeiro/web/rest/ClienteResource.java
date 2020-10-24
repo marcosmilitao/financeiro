@@ -2,6 +2,7 @@ package com.financeiro.web.rest;
 
 import com.financeiro.domain.Cliente;
 import com.financeiro.service.ClienteService;
+import com.financeiro.service.dto.SaldoTotalDTO;
 import com.financeiro.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -85,7 +86,7 @@ public class ClienteResource {
     @GetMapping("/clientes")
     public List<Cliente> getAllClientes() {
         log.debug("REST request to get all Clientes");
-        return clienteService.findAll();
+        return clienteService.findAllOrderByNome();
     }
 
     /**
@@ -112,5 +113,27 @@ public class ClienteResource {
         log.debug("REST request to delete Cliente : {}", id);
         clienteService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * {@code GET  /clientesfiltro} : get all the clientes.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clientes in body.
+     */
+    @GetMapping("/clientesfiltro/{filtro}")
+    public List<Cliente> getAllClientesFilter(@PathVariable String filtro) {
+        log.debug("REST request to get all Clientes filtro : {}", filtro);
+        return clienteService.FindAllByFiltro(filtro);
+    }
+
+    /**
+     * {@code GET  /clientesfiltro} : get all the clientes.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clientes in body.
+     */
+    @GetMapping("/saldogeral")
+    public SaldoTotalDTO getSaldoGeral() {
+        log.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>");
+        return clienteService.calculoSaldo();
     }
 }

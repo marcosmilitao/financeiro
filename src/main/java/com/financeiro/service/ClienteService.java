@@ -1,6 +1,7 @@
 package com.financeiro.service;
 
 import com.financeiro.domain.Cliente;
+import com.financeiro.service.dto.SaldoTotalDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,4 +44,11 @@ public interface ClienteService {
 
 
     Cliente add(Cliente cliente);
+
+
+    List<Cliente> findAllOrderByNome();
+
+    List<Cliente> FindAllByFiltro(String filtro);
+
+    SaldoTotalDTO calculoSaldo();
 }

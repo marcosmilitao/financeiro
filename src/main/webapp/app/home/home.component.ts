@@ -23,8 +23,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   authSubscription?: Subscription;
   clientes?: ICliente[];
   eventSubscriber?: Subscription;
+  teste = 24988068451;
   nome = '';
-
+  selectedFilter = '';
+  saldoTotal: any;
   constructor(
     private accountService: AccountService,
     private loginModalService: LoginModalService,
@@ -35,6 +37,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   loadAll(): void {
     this.clienteService.query().subscribe((res: HttpResponse<ICliente[]>) => (this.clientes = res.body || []));
+
+    this.clienteService.saldoTotal().subscribe((res: HttpResponse<any>) => (this.saldoTotal = res.body || []));
+  }
+
+  loadAllFiltro(filtro: any): void {
+    this.selectedFilter = filtro.target.value;
+    this.clienteService.findFiltro(this.selectedFilter).subscribe((res: HttpResponse<ICliente[]>) => (this.clientes = res.body || []));
   }
 
   ngOnInit(): void {

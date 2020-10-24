@@ -22,6 +22,8 @@ export class HomeService {
   public resourceUrlSaldo = SERVER_API_URL + 'api/atualisaSaldo';
   public resourceUrlMovimentacao = SERVER_API_URL + 'api/movimentacaos';
   public resourceUrlSaldoId = SERVER_API_URL + 'api/movimentacaosLista';
+  public resourceFiltroUrl = SERVER_API_URL + 'api/clientesfiltro';
+  public resourceSaldoTotalUrl = SERVER_API_URL + 'api/saldogeral';
 
   constructor(protected http: HttpClient) {}
 
@@ -37,6 +39,13 @@ export class HomeService {
     return this.http.get<ICliente>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  saldoTotal(): Observable<EntityResponseType> {
+    return this.http.get<any>(this.resourceSaldoTotalUrl, { observe: 'response' });
+  }
+
+  findFiltro(filtro?: any): Observable<EntityArrayResponseType> {
+    return this.http.get<ICliente[]>(`${this.resourceFiltroUrl}/${filtro}`, { observe: 'response' });
+  }
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<ICliente[]>(this.resourceUrl, { params: options, observe: 'response' });

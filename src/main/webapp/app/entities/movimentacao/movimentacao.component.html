@@ -35,7 +35,7 @@
             <tbody>
                 <tr *ngFor="let movimentacao of movimentacaos ;trackBy: trackId">
                     <td><a [routerLink]="['/movimentacao', movimentacao.id, 'view']">{{ movimentacao.id }}</a></td>
-                    <td>{{ movimentacao.valor }}</td>
+                    <td>{{ movimentacao.valor | currency:'BRL':true }}</td>
                     <td>{{ movimentacao.data | date:'medium' }}</td>
                     <td jhiTranslate="{{ 'financeiroApp.TipoMovimento.' + movimentacao.tipoMovimento }}">{{ movimentacao.tipoMovimento }}</td>
                     <td>{{ movimentacao.usuario }}</td>

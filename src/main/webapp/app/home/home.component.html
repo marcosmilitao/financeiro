@@ -32,14 +32,61 @@
     <div class="alert alert-warning" id="no-result" *ngIf="clientes?.length === 0">
         <span jhiTranslate="financeiroApp.cliente.home.notFound">No clientes found</span>
     </div>
-    <div class="float-right" >
+
+    <div   class="float-right" >
         <input class="form-control" type="text" [(ngModel)]="nome" placeholder="Pesquisar..."/>
+
+        <select class="form-control" name="filtro" id="filtro" (change)="loadAllFiltro($event)">
+            <option value="nome">Por Nome</option>
+            <option value="telefone">Por Telefone</option>
+            <option value="saldoMaior">Por Maior Saldo</option>
+            <option value="saldoMenor">Por Menor Saldo</option>
+        </select>
     </div>
 
-    <div class="table-responsive" id="entities" *ngIf="clientes && clientes.length > 0">
+    <div *jhiHasAnyAuthority="'ROLE_ADMIN'"  class="float-left" >
+        <ul class="list-group">
+            <li class="list-group-item  list-group-item-success">SALDO POSITIVO</li>
+            <li class="list-group-item">
+                Quantidade:
+                <span class="badge badge-success">{{saldoTotal.quantidadePositivo}}</span>
+            </li>
+            <li class="list-group-item">
+               Saldo:
+                <span class="badge badge-success ">{{saldoTotal.totalPositivo | currency:'BRL':true}}</span>
+            </li>
+
+        </ul>
+    </div>
+    <div *jhiHasAnyAuthority="'ROLE_ADMIN'"  class="float-left" >
+        <ul class="list-group">
+            <li class="list-group-item  list-group-item-danger">SALDO NEGATIVO</li>
+
+            <li class="list-group-item">
+               Quantidade:
+                <span class="badge badge-danger ">{{saldoTotal.quantidadeNegativo}}</span>
+            </li>
+            <li class="list-group-item">
+                Saldo:
+                <span class="badge badge-danger">{{saldoTotal.totalNegativo | currency:'BRL':true}}</span>
+            </li>
+        </ul>
+
+    </div>
+    <div  *jhiHasAnyAuthority="'ROLE_ADMIN'"  class="float-left" >
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-primary">TOTAL</li>
+
+            <li class="list-group-item">
+                {{saldoTotal.saldoTotal | currency:'BRL':true}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="table-responsive " id="entities" *ngIf="clientes && clientes.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-            <tr>
+            <thead class="table-secondary">
+            <tr scope="row">
 <!--                <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>-->
                 <th scope="col" ><span jhiTranslate="financeiroApp.cliente.nome">Nome</span></th>
                 <th scope="col" ><span jhiTranslate="financeiroApp.cliente.telefone">Telefone</span></th>
@@ -51,7 +98,8 @@
             <tr *ngFor="let cliente of clientes | pesquisa:nome;trackBy: trackId">
 <!--                <td><a [routerLink]="['/cliente', cliente.id, 'view']">{{ cliente.id }}</a></td>-->
                 <td>{{ cliente.nome }}</td>
-                <td>{{ cliente.telefone }}</td>
+                <td *ngIf="cliente.telefone !== undefined">{{ cliente.telefone | mask:'(00) 0 0000-0000' }}</td>
+                <td *ngIf="cliente.telefone === undefined">(00) 0000-0000</td>
                 <td>
                     {{ cliente.saldo?.valor | currency:'BRL':true }}
 
