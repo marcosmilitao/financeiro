@@ -33,9 +33,12 @@
         <span jhiTranslate="financeiroApp.cliente.home.notFound">No clientes found</span>
     </div>
 
-    <div   class="float-right" >
-        <input class="form-control" type="text" [(ngModel)]="nome" placeholder="Pesquisar..."/>
 
+    <div   class="float-right" >Pesquisar:
+        <input class="form-control" type="text" [(ngModel)]="nome" placeholder="Digite aqui..."/>
+
+    </div>
+    <div class="float-right" >Ordenar:
         <select class="form-control" name="filtro" id="filtro" (change)="loadAllFiltro($event)">
             <option value="nome">Por Nome</option>
             <option value="telefone">Por Telefone</option>
@@ -43,7 +46,6 @@
             <option value="saldoMenor">Por Menor Saldo</option>
         </select>
     </div>
-
     <div *jhiHasAnyAuthority="'ROLE_ADMIN'"  class="float-left" >
         <ul class="list-group">
             <li class="list-group-item  list-group-item-success">SALDO POSITIVO</li>
